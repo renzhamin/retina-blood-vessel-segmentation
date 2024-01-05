@@ -1,4 +1,3 @@
-
 import os
 import time
 from glob import glob
@@ -9,6 +8,7 @@ import torch.nn as nn
 
 from data import DriveDataset
 from model import build_unet
+from uresnet import UNetWithResnet50Encoder
 from loss import DiceLoss, DiceBCELoss
 from utils import seeding, create_dir, epoch_time
 
@@ -91,7 +91,8 @@ if __name__ == "__main__":
     )
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = build_unet()
+    """ model = build_unet() """
+    model = UNetWithResnet50Encoder()
     model = model.to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
